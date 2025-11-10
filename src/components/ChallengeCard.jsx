@@ -19,7 +19,7 @@ function ChallengeCard({challenge}){
             <div className="challenge-info">
                 <p>Created: {formatDate(dateCreated)}</p>
                 <p>Streak: {streak}</p>
-                {notes && <p><strong>Notes:</strong> {notes}</p>}
+                {notes && <p>Notes: {notes}</p>}
             </div>
         </div>
     )

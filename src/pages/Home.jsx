@@ -19,6 +19,14 @@ function Home(){
         return saved ? JSON.parse(saved) : null;
     });
 
+    // for editing challenges
+    const [editing, setEditing] = useState(false);
+    const [editChallenge, setEditChallenge] = useState({
+        title: "",
+        description: "",
+        notes: "",
+    });
+
     // save to localStorage when changed
     useEffect(() => {
         if (challenge) {
@@ -28,32 +36,102 @@ function Home(){
         }
     }, [challenge]);
 
+    // create/remove functions
     function createChallenge() {
         const newChallenge = {
-        id: 1,
-        title: "New Challenge",
-        description: "Describe your challenge here",
-        dateCreated: new Date().toISOString().split("T")[0],
-        lastCompleted: null,
-        streak: 0,
-        notes: "",
-        completedToday: false,
+            id: 1,
+            title: "",
+            description: "",
+            dateCreated: new Date().toISOString().split("T")[0],
+            lastCompleted: null,
+            streak: 0,
+            notes: "",
+            completedToday: false,
         };
         setChallenge(newChallenge);
+        
+        setEditChallenge({
+            title: "",
+            description: "",
+            notes: "",
+        });
+        setEditing(true);
     };
 
     function removeChallenge(){
         setChallenge(null)
     }
 
+    // editing functions
+    function startEditing() {
+        setEditChallenge({
+            title: challenge.title,
+            description: challenge.description,
+            notes: challenge.notes,
+        });
+        setEditing(true);
+    }
+
+    function saveEdit() {
+        setChallenge({
+            ...challenge,
+            ...editChallenge,
+        });
+        setEditing(false);
+    }
+
+    function cancelEdit() {
+        setEditing(false);
+    }
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setEditChallenge(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+
+
+
+
     return(
         <div>
             <h1>My Challenge</h1>
             {challenge ? (
-                <>
-                    <ChallengeCard challenge={challenge}/>
-                    <button onClick={removeChallenge}>Remove</button>
-                </>
+                editing ? (
+                    <div className="edit-challenge-form">
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Challenge Title"
+                            value={editChallenge.title}
+                            onChange={handleChange}
+                        />
+                        <textarea
+                            name="description"
+                            placeholder="Description"
+                            value={editChallenge.description}
+                            onChange={handleChange}
+                        />
+                        <textarea
+                            name="notes"
+                            placeholder="Notes"
+                            value={editChallenge.notes}
+                            onChange={handleChange}
+                        />
+                        <button onClick={saveEdit}>Save</button>
+                        <button onClick={cancelEdit}>Cancel</button>
+
+                    </div>
+                ) : (
+                    <>
+                        <ChallengeCard challenge={challenge}/>
+                        <button onClick={startEditing}>Edit</button>
+                        <button onClick={removeChallenge}>Remove</button>
+                    </>
+                )
             ) : (
                 <>
                     <p>You don't have a challenge yet!</p>
