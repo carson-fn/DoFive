@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import "../styles/Home.css"
 import ChallengeCard from "../components/ChallengeCard";
 
 const challenge = {
@@ -49,7 +50,7 @@ function Home(){
             completedToday: false,
         };
         setChallenge(newChallenge);
-        
+
         setEditChallenge({
             title: "",
             description: "",
@@ -121,21 +122,24 @@ function Home(){
                             value={editChallenge.notes}
                             onChange={handleChange}
                         />
-                        <button onClick={saveEdit}>Save</button>
-                        <button onClick={cancelEdit}>Cancel</button>
-
+                        <div className="button-group">
+                            <button className="save-button" onClick={saveEdit}>Save</button>
+                            <button className="cancel-button" onClick={cancelEdit}>Cancel</button>
+                        </div>
                     </div>
                 ) : (
                     <>
                         <ChallengeCard challenge={challenge}/>
-                        <button onClick={startEditing}>Edit</button>
-                        <button onClick={removeChallenge}>Remove</button>
+                         <div className="button-group">
+                            <button className="edit-button" onClick={startEditing}>Edit</button>
+                            <button className="remove-button" onClick={removeChallenge}>Remove</button>
+                        </div>
                     </>
                 )
             ) : (
                 <>
                     <p>You don't have a challenge yet!</p>
-                    <button onClick={createChallenge}>Create Challenge</button>
+                    <button className="create-button" onClick={createChallenge}>Create Challenge</button>
                 </>
             )}
 

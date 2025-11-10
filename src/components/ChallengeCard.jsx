@@ -1,4 +1,4 @@
-
+import "../styles/ChallengeCard.css"
 function ChallengeCard({challenge}){
     const { title, description, dateCreated, lastCompleted, streak, completedToday, notes } = challenge;
 
@@ -12,17 +12,34 @@ function ChallengeCard({challenge}){
         return date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
     };    
 
-    return(
-        <div className="challenge-card">
-            <h2>{title}</h2>
-            <p className="description">{description}</p>
-            <div className="challenge-info">
-                <p>Created: {formatDate(dateCreated)}</p>
-                <p>Streak: {streak}</p>
-                {notes && <p>Notes: {notes}</p>}
-            </div>
+    return (
+    <div className="challenge-card">
+      <div className="challenge-header">
+        <h2 className="challenge-title">
+          {challenge.title || "Unnamed Challenge"}
+        </h2>
+        <span className="streak-badge">
+          {challenge.streak} 🔥
+        </span>
+      </div>
+
+      <p className="challenge-description">{challenge.description}</p>
+
+      <div className="challenge-info">
+        <p><b>Created:</b> {challenge.dateCreated}</p>
+        {challenge.lastCompleted && (
+          <p><b>Last Completed:</b> {challenge.lastCompleted}</p>
+        )}
+      </div>
+
+      {challenge.notes && (
+        <div className="challenge-notes">
+          <b>Notes:</b>
+          <p>{challenge.notes}</p>
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
 export default ChallengeCard;
