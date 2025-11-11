@@ -1,17 +1,19 @@
+@import './variables.css';
+
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background-color: #fafafa;
-  color: #333;
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 .app-header {
   text-align: center;
-  padding: 1.5rem 1rem;
-  background-color: #fcb359;
-  border-bottom: 1px solid #ddd;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background-color: var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .app-header h1 {
@@ -21,22 +23,22 @@
 }
 
 .subtitle {
-  font-size: 1rem;
-  color: #555;
+  font-size: var(--font-size-subtitle);
+  color: var(--color-muted);
   margin-top: 0.25rem;
 }
 
 .app-content {
   flex: 1;
-  padding: 2rem 1rem;
-  max-width: 700px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  max-width: var(--max-width-content);
   margin: 0 auto;
 }
 
 .app-footer {
   text-align: center;
-  padding: 1rem;
-  font-size: 0.85rem;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-small);
   color: #777;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--color-border);
 }

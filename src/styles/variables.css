@@ -1,0 +1,42 @@
+:root {
+  /* Colors */
+  --color-bg: #fafafa;
+  --color-text: #333333;
+  --color-accent: #fcb359;
+  --color-muted: #555;
+  --color-border: #ddd;
+  --color-card-bg: #ffffff;
+  --color-danger: #df4545;
+  --color-danger-hover: #dc2626;
+  --color-button-bg: #dddddd;
+  --color-button-hover: #b5b5b5;
+
+  /* Shadows */
+  --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
+  --shadow-badge: 0 2px 6px rgba(6, 182, 212, 0.3);
+
+  /* Border radius */
+  --radius-card: 16px;
+  --radius-button: 8px;
+  --radius-info: 10px;
+
+  /* Font */
+  --font-main: Arial, sans-serif;
+  --font-code: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --font-size-base: 1rem;
+  --font-size-title: 1.6rem;
+  --font-size-subtitle: 1rem;
+  --font-size-small: 0.85rem;
+  --font-size-info: 0.95rem;
+  --font-size-badge: 0.9rem;
+
+  /* Spacing */
+  --spacing-sm: 0.3rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-xxl: 1.75rem;
+  --max-width-content: 700px;
+  --max-width-card: 520px;
+}
