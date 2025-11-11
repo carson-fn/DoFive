@@ -1,9 +1,12 @@
-import { computeHeadingLevel } from "@testing-library/dom";
+import React, {useState} from 'react'
 import "../styles/ChallengeCard.css"
+import Timer from './Timer';
+
 function ChallengeCard({challenge, onComplete}){
     const { title, description, dateCreated, lastCompleted, streak, completedToday, notes } = challenge;
+    const [timerOn, setTimerOn] = useState(false)
 
-    const formatDate = (dateStr) => {
+    function formatDate(dateStr){
         if (!dateStr) return "N/A";
 
         // ensure date does not get messed from time zone conversion
@@ -13,7 +16,17 @@ function ChallengeCard({challenge, onComplete}){
         return date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
     };    
 
-    return (
+    function startTimer(){
+      setTimerOn(true)
+    }
+
+    function onTimerComplete(){
+      setTimerOn(false)
+      onComplete()
+    }
+
+    return (<>
+      {!timerOn ? (
     <div className="challenge-card">
       <div className="challenge-header">
         <h2 className="challenge-title">
@@ -41,10 +54,18 @@ function ChallengeCard({challenge, onComplete}){
       )}
 
       {!completedToday && (
-        <button className="complete-button" onClick={onComplete}>Finish</button>
+        <div className="button-group">
+          <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
+          <button className="complete-button" onClick={onComplete}>Finish</button>
+        </div>
       )}
     </div>
+      ) : (
+        <Timer onComplete={onTimerComplete}/>
+      )}
+      </>
   );
+  
 }
 
 export default ChallengeCard;
