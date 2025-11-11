@@ -1,5 +1,6 @@
+import { computeHeadingLevel } from "@testing-library/dom";
 import "../styles/ChallengeCard.css"
-function ChallengeCard({challenge}){
+function ChallengeCard({challenge, onComplete}){
     const { title, description, dateCreated, lastCompleted, streak, completedToday, notes } = challenge;
 
     const formatDate = (dateStr) => {
@@ -37,6 +38,10 @@ function ChallengeCard({challenge}){
           <b>Notes:</b>
           <p>{challenge.notes}</p>
         </div>
+      )}
+
+      {!completedToday && (
+        <button className="complete-button" onClick={onComplete}>Finish</button>
       )}
     </div>
   );

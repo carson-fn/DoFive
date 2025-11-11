@@ -93,7 +93,16 @@ function Home(){
         }));
     }
 
-
+    // completing a challenge for the day
+    function completeChallenge() {
+        const today = new Date().toISOString().split("T")[0];
+        setChallenge(prev => ({
+            ...prev,
+            streak: prev.streak + 1,
+            completedToday: true,
+            lastCompleted: today,
+        }));
+    }
 
 
 
@@ -129,7 +138,7 @@ function Home(){
                     </div>
                 ) : (
                     <>
-                        <ChallengeCard challenge={challenge}/>
+                        <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
                          <div className="button-group">
                             <button className="edit-button" onClick={startEditing}>Edit</button>
                             <button className="remove-button" onClick={removeChallenge}>Remove</button>
