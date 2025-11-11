@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../styles/Timer.css"
 
 function Timer({onComplete}) {
     const totalTime = 3;
