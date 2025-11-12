@@ -1,4 +1,5 @@
 import {premadeChallenges} from "../data/premadeChallenges.js"
+import "../styles/PremadeChallengeList.css"
 
 function PremadeChallengeList({onAddChallenge}){
 
@@ -7,12 +8,12 @@ function PremadeChallengeList({onAddChallenge}){
             <h2>Select a Challenge:</h2>
             <div className="premade-challenge-grid">
                 {premadeChallenges.map((challenge) => (
-                    <div className="premade-challenge-card" key={challenge.id}>
+                    <div className="challenge-card" key={challenge.id}>
                         <h2 className="challenge-title">
                             {challenge.title || "Unnamed Challenge"}
                         </h2>
                         <p className="challenge-description">{challenge.description}</p>
-                        <button className="add-premade-challenge-button" onClick={()=> onAddChallenge(challenge)}>Select</button>
+                        <button className="select-premade-challenge-button" onClick={()=> onAddChallenge(challenge)}>Select</button>
                     </div>
                 ))}
             </div>
