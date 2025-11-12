@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../styles/Home.css"
 import ChallengeCard from "../components/ChallengeCard";
+import PremadeChallengeList from "../components/PremadeChallengeList";
 
 function getToday() {
   const local = new Date();
@@ -49,6 +50,20 @@ function Home(){
         description: "",
         notes: "",
     });
+
+    // for selecting premade challenges
+    const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
+    function selectPremadeChallenge(premade){
+        let extended = {
+            ...premade,
+            lastCompleted: null,
+            streak: 0,
+            notes: "",
+            completedToday: false,
+        };
+        setChallenge(extended)
+        setViewPremadeChallenges(false)
+    }     
 
     // save to localStorage when changed
     useEffect(() => {
@@ -168,10 +183,17 @@ function Home(){
                     </>
                 )
             ) : (
-                <>
-                    <p>You don't have a challenge yet!</p>
-                    <button className="create-button" onClick={createChallenge}>Create Challenge</button>
-                </>
+                viewPremadeChallenges ? (
+                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge}/>
+                ) : (
+                    <>
+                        <p>You don't have a challenge yet!</p>
+                        <div className="button-group">
+                            <button className="create-button" onClick={createChallenge}>Create Custom Challenge</button>
+                            <button className="create-button" onClick={()=> setViewPremadeChallenges(true)}>Use Premade Challenge</button>
+                        </div>
+                    </>
+                )
             )}
 
         </div>
