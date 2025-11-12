@@ -2,17 +2,6 @@ import React, {useState, useEffect} from "react";
 import "../styles/Home.css"
 import ChallengeCard from "../components/ChallengeCard";
 
-const challenge = {
-    id: 1,
-    title: "5min Abs",
-    description: "Quick ab workout to strengthen core",
-    dateCreated: "2025-11-08",
-    lastCompleted: "2025-11-10",
-    streak: 3,  
-    notes: "",
-    completedToday: true,
-}
-
 function getToday() {
   const local = new Date();
   local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
