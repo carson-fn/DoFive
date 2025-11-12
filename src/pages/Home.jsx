@@ -16,8 +16,29 @@ const challenge = {
 function Home(){
     // load challenge from localStorage
     const [challenge, setChallenge] = useState(() => {
-        const saved = localStorage.getItem("challenge");
-        return saved ? JSON.parse(saved) : null;
+        let saved = localStorage.getItem("challenge");
+        let updated;
+        if(saved){
+            updated = JSON.parse(saved)
+        } else {
+            return null;
+        }
+        let today = new Date().toISOString().split("T")[0];
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday = yesterday.toISOString().split("T")[0];
+
+        // set completedToday
+        if (updated.lastCompleted != today){
+            updated = {...updated, completedToday: false}
+        }
+
+        // check that streak is still valid
+        if (updated.lastCompleted && updated.lastCompleted !== today && updated.lastCompleted !== yesterday) {
+            updated = {...updated, streak: 0};
+        }
+    
+        return updated;
     });
 
     // for editing challenges
