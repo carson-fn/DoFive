@@ -1,0 +1,13 @@
+@import './variables.css';
+
+.timer-container {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+.timer-container h2 {
+  font-size: var(--font-size-title);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}

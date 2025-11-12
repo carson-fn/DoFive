@@ -13,11 +13,44 @@ const challenge = {
     completedToday: true,
 }
 
+function getToday() {
+  const local = new Date();
+  local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+  return local.toISOString().split("T")[0];
+}
+
+function getYesterday(){
+    const local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    local.setDate(local.getDate() - 1)
+    return local.toISOString().split("T")[0];
+}
+
+
 function Home(){
     // load challenge from localStorage
     const [challenge, setChallenge] = useState(() => {
-        const saved = localStorage.getItem("challenge");
-        return saved ? JSON.parse(saved) : null;
+        let saved = localStorage.getItem("challenge");
+        let updated;
+        if(saved){
+            updated = JSON.parse(saved)
+        } else {
+            return null;
+        }
+        let today = getToday();
+        let yesterday = getYesterday();
+
+        // set completedToday
+        if (updated.lastCompleted != today){
+            updated = {...updated, completedToday: false}
+        }
+
+        // check that streak is still valid
+        if (updated.lastCompleted && updated.lastCompleted !== today && updated.lastCompleted !== yesterday) {
+            updated = {...updated, streak: 0};
+        }
+    
+        return updated;
     });
 
     // for editing challenges
@@ -43,7 +76,7 @@ function Home(){
             id: 1,
             title: "",
             description: "",
-            dateCreated: new Date().toISOString().split("T")[0],
+            dateCreated: getToday(),
             lastCompleted: null,
             streak: 0,
             notes: "",
@@ -93,7 +126,16 @@ function Home(){
         }));
     }
 
-
+    // completing a challenge for the day
+    function completeChallenge() {
+        const today = getToday();
+        setChallenge(prev => ({
+            ...prev,
+            streak: prev.streak + 1,
+            completedToday: true,
+            lastCompleted: today,
+        }));
+    }
 
 
 
@@ -129,7 +171,7 @@ function Home(){
                     </div>
                 ) : (
                     <>
-                        <ChallengeCard challenge={challenge}/>
+                        <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
                          <div className="button-group">
                             <button className="edit-button" onClick={startEditing}>Edit</button>
                             <button className="remove-button" onClick={removeChallenge}>Remove</button>

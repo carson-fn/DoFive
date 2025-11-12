@@ -1,8 +1,12 @@
+import React, {useState} from 'react'
 import "../styles/ChallengeCard.css"
-function ChallengeCard({challenge}){
-    const { title, description, dateCreated, lastCompleted, streak, completedToday, notes } = challenge;
+import Timer from './Timer';
 
-    const formatDate = (dateStr) => {
+function ChallengeCard({challenge, onComplete}){
+    const { title, description, dateCreated, lastCompleted, streak, completedToday, notes } = challenge;
+    const [timerOn, setTimerOn] = useState(false)
+
+    function formatDate(dateStr){
         if (!dateStr) return "N/A";
 
         // ensure date does not get messed from time zone conversion
@@ -12,7 +16,17 @@ function ChallengeCard({challenge}){
         return date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
     };    
 
-    return (
+    function startTimer(){
+      setTimerOn(true)
+    }
+
+    function onTimerComplete(){
+      setTimerOn(false)
+      onComplete()
+    }
+
+    return (<>
+      {!timerOn ? (
     <div className="challenge-card">
       <div className="challenge-header">
         <h2 className="challenge-title">
@@ -26,9 +40,9 @@ function ChallengeCard({challenge}){
       <p className="challenge-description">{challenge.description}</p>
 
       <div className="challenge-info">
-        <p><b>Created:</b> {challenge.dateCreated}</p>
+        <p><b>Created:</b> {formatDate(challenge.dateCreated)}</p>
         {challenge.lastCompleted && (
-          <p><b>Last Completed:</b> {challenge.lastCompleted}</p>
+          <p><b>Last Completed:</b> {formatDate(challenge.lastCompleted)}</p>
         )}
       </div>
 
@@ -38,8 +52,20 @@ function ChallengeCard({challenge}){
           <p>{challenge.notes}</p>
         </div>
       )}
+
+      {!completedToday && (
+        <div className="button-group">
+          <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
+          <button className="complete-button" onClick={onComplete}>Finish</button>
+        </div>
+      )}
     </div>
+      ) : (
+        <Timer onComplete={onTimerComplete}/>
+      )}
+      </>
   );
+  
 }
 
 export default ChallengeCard;
