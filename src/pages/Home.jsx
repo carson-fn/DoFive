@@ -13,6 +13,20 @@ const challenge = {
     completedToday: true,
 }
 
+function getToday() {
+  const local = new Date();
+  local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+  return local.toISOString().split("T")[0];
+}
+
+function getYesterday(){
+    const local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    local.setDate(local.getDate() - 1)
+    return local.toISOString().split("T")[0];
+}
+
+
 function Home(){
     // load challenge from localStorage
     const [challenge, setChallenge] = useState(() => {
@@ -23,10 +37,8 @@ function Home(){
         } else {
             return null;
         }
-        let today = new Date().toISOString().split("T")[0];
-        let yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        yesterday = yesterday.toISOString().split("T")[0];
+        let today = getToday();
+        let yesterday = getYesterday();
 
         // set completedToday
         if (updated.lastCompleted != today){
@@ -64,7 +76,7 @@ function Home(){
             id: 1,
             title: "",
             description: "",
-            dateCreated: new Date().toISOString().split("T")[0],
+            dateCreated: getToday(),
             lastCompleted: null,
             streak: 0,
             notes: "",
@@ -116,7 +128,7 @@ function Home(){
 
     // completing a challenge for the day
     function completeChallenge() {
-        const today = new Date().toISOString().split("T")[0];
+        const today = getToday();
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
