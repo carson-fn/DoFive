@@ -70,4 +70,23 @@
   color: #444;
 }
 
+/* for embedded videos */
+.embedded-video {
+  margin-top: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #000; /* helps during loading */
+  position: relative;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
 
+.embedded-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+}

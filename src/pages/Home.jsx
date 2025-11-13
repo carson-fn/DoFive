@@ -25,7 +25,7 @@ const emptyChallenge = {
     streak: 0,
     notes: "",
     completedToday: false,
-    videoUrl: "",
+    videoUrl: "https://www.youtube.com/embed/tgbNymZ7vqY",
 }
 
 
