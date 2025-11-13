@@ -16,6 +16,18 @@ function getYesterday(){
     return local.toISOString().split("T")[0];
 }
 
+const emptyChallenge = {
+    id: null,
+    title: "",
+    description: "",
+    dateCreated: null,
+    lastCompleted: null,
+    streak: 0,
+    notes: "",
+    completedToday: false,
+    videoUrl: "",
+}
+
 
 function Home(){
     // load challenge from localStorage
@@ -54,13 +66,7 @@ function Home(){
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
     function selectPremadeChallenge(premade){
-        let extended = {
-            ...premade,
-            lastCompleted: null,
-            streak: 0,
-            notes: "",
-            completedToday: false,
-        };
+        let extended = {...emptyChallenge, ...premade};
         setChallenge(extended)
         setViewPremadeChallenges(false)
     }     
@@ -77,14 +83,9 @@ function Home(){
     // create/remove functions
     function createChallenge() {
         const newChallenge = {
+            ...emptyChallenge,
             id: 1,
-            title: "",
-            description: "",
             dateCreated: getToday(),
-            lastCompleted: null,
-            streak: 0,
-            notes: "",
-            completedToday: false,
         };
         setChallenge(newChallenge);
 
