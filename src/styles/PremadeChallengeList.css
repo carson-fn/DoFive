@@ -1,0 +1,14 @@
+.premade-challenge-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.select-premade-challenge-button {
+    position: absolute;
+    bottom: 0;
+    margin:45px;
+    margin-bottom: 10px;
+}

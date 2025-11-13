@@ -7,8 +7,9 @@
   box-shadow: var(--shadow-card);
   padding: var(--spacing-xxl);
   margin: 1.5rem auto;
-  max-width: var(--max-width-card);
+  width: var(--width-card);
   transition: all 0.25s ease;
+  position: relative;
 }
 
 .challenge-card:hover {
