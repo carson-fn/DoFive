@@ -4,12 +4,14 @@ export const premadeChallenges =
     title: "5 min Ab Workout",
     description: "Quick ab workout to strengthen core",
     dateCreated: "1999-11-12",
+    videoId: "j2QmtQ_tHaw"
 },
 {
     id: 2,
     title: "5 min Dribbling Workout",
     description: "Improve your basketball handles with a quick 5 minute workout",
     dateCreated: "1999-11-12",
+    videoId: "oADaM2L1YLc"
 },
 {
     id: 3,
