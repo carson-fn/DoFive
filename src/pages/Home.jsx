@@ -92,7 +92,9 @@ function Home(){
         setEditChallenge({
             title: "",
             description: "",
+            videoId: "",
             notes: "",
+            videoInput: "",
         });
         setEditing(true);
     };
@@ -103,11 +105,15 @@ function Home(){
 
     // editing functions
     function startEditing() {
+        let videoInput = challenge.videoId ? `youtu.be/${challenge.videoId}` : "";
+
         setEditChallenge({
             title: challenge.title,
             description: challenge.description,
             videoId: challenge.videoId,
             notes: challenge.notes,
+            // videoInput is only stored for the editing form, it does not go into the actual challenge object
+            videoInput: videoInput,
         });
         setEditing(true);
     }
@@ -140,12 +146,18 @@ function Home(){
         return "";
     }
 
+    function handleVideoInputBlur(e){
+        let { name, value } = e.target;
+        const id = extractYouTubeId(value);
+
+        setEditChallenge(prev => ({
+            ...prev,
+            videoId: id,
+        }));
+    }
+
     function handleChange(e) {
         let { name, value } = e.target;
-
-        if (name == "videoId"){
-            value = extractYouTubeId(value)
-        }
 
         setEditChallenge(prev => ({
             ...prev,
@@ -185,12 +197,20 @@ function Home(){
                             value={editChallenge.description}
                             onChange={handleChange}
                         />
-                        <textarea
-                            name="videoId"
-                            placeholder="youtube.com/..."
-                            value={`youtu.be/${editChallenge.videoId}`}
+                        <input
+                            type="text"
+                            name="videoInput"
+                            placeholder="Paste a YouTube link or ID"
+                            value={editChallenge.videoInput}
                             onChange={handleChange}
+                            onBlur={handleVideoInputBlur}
                         />
+                        {editChallenge.videoInput.length > 0 && (
+                            <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
+                                {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
+                            </p>
+                        )}
+
                         <textarea
                             name="notes"
                             placeholder="Notes"
