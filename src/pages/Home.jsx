@@ -25,7 +25,7 @@ const emptyChallenge = {
     streak: 0,
     notes: "",
     completedToday: false,
-    videoUrl: "https://www.youtube.com/embed/tgbNymZ7vqY",
+    videoId: "tgbNymZ7vqY",
 }
 
 
@@ -106,7 +106,7 @@ function Home(){
         setEditChallenge({
             title: challenge.title,
             description: challenge.description,
-            videoUrl: challenge.videoUrl,
+            videoId: challenge.videoId,
             notes: challenge.notes,
         });
         setEditing(true);
@@ -165,9 +165,9 @@ function Home(){
                             onChange={handleChange}
                         />
                         <textarea
-                            name="videoUrl"
+                            name="videoId"
                             placeholder="youtube.com/..."
-                            value={editChallenge.videoUrl}
+                            value={`youtu.be/${editChallenge.videoId}`}
                             onChange={handleChange}
                         />
                         <textarea
