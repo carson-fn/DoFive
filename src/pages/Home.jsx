@@ -124,8 +124,29 @@ function Home(){
         setEditing(false);
     }
 
+    function extractYouTubeId(input) {
+        if (!input) return "";
+
+        // regex pattern to cover multiple types of youtube links and extract the id
+        const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+
+        const match = input.match(regex);
+        if (match) return match[1];
+
+        // regex pattern for just the plain video id
+        if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+
+        // user input does not match a youtube link
+        return "";
+    }
+
     function handleChange(e) {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+
+        if (name == "videoId"){
+            value = extractYouTubeId(value)
+        }
+
         setEditChallenge(prev => ({
             ...prev,
             [name]: value,
