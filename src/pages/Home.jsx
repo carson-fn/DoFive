@@ -130,25 +130,35 @@ function Home(){
         setEditing(false);
     }
 
-    function extractYouTubeId(input) {
+    async function isValidYouTubeId(videoId) {
+        const url = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        const response = await fetch(url, { method: "HEAD" });
+        return response.ok;
+    }
+
+    async function extractYouTubeId(input) {
         if (!input) return "";
+        let id = "";
 
         // regex pattern to cover multiple types of youtube links and extract the id
         const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
-
         const match = input.match(regex);
-        if (match) return match[1];
 
-        // regex pattern for just the plain video id
-        if (/^[A-Za-z0-9_-]{11}$/.test(input)) return input;
+        if (match) id = match[1];
+        else if (/^[A-Za-z0-9_-]{11}$/.test(input)) id = input;
+        else id = "";
+
+        let valid = await isValidYouTubeId(id);
+
+        return valid ? id : "";
 
         // user input does not match a youtube link
         return "";
     }
 
-    function handleVideoInputBlur(e){
+    async function handleVideoInputBlur(e){
         let { name, value } = e.target;
-        const id = extractYouTubeId(value);
+        const id = await extractYouTubeId(value);
 
         setEditChallenge(prev => ({
             ...prev,
