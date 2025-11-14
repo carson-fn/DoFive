@@ -13,6 +13,11 @@ function PremadeChallengeList({onAddChallenge}){
                             {challenge.title || "Unnamed Challenge"}
                         </h2>
                         <p className="challenge-description">{challenge.description}</p>
+                        {challenge.videoId && (
+                            <div className="embedded-video">
+                            <iframe src={`https://www.youtube.com/embed/${challenge.videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
+                            </div>
+                        )}
                         <button className="select-premade-challenge-button" onClick={()=> onAddChallenge(challenge)}>Select</button>
                     </div>
                 ))}

@@ -16,6 +16,18 @@ function getYesterday(){
     return local.toISOString().split("T")[0];
 }
 
+const emptyChallenge = {
+    id: null,
+    title: "",
+    description: "",
+    dateCreated: null,
+    lastCompleted: null,
+    streak: 0,
+    notes: "",
+    completedToday: false,
+    videoId: "tgbNymZ7vqY",
+}
+
 
 function Home(){
     // load challenge from localStorage
@@ -54,13 +66,7 @@ function Home(){
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
     function selectPremadeChallenge(premade){
-        let extended = {
-            ...premade,
-            lastCompleted: null,
-            streak: 0,
-            notes: "",
-            completedToday: false,
-        };
+        let extended = {...emptyChallenge, ...premade};
         setChallenge(extended)
         setViewPremadeChallenges(false)
     }     
@@ -77,21 +83,18 @@ function Home(){
     // create/remove functions
     function createChallenge() {
         const newChallenge = {
+            ...emptyChallenge,
             id: 1,
-            title: "",
-            description: "",
             dateCreated: getToday(),
-            lastCompleted: null,
-            streak: 0,
-            notes: "",
-            completedToday: false,
         };
         setChallenge(newChallenge);
 
         setEditChallenge({
             title: "",
             description: "",
+            videoId: "",
             notes: "",
+            videoInput: "",
         });
         setEditing(true);
     };
@@ -102,10 +105,15 @@ function Home(){
 
     // editing functions
     function startEditing() {
+        let videoInput = challenge.videoId ? `youtu.be/${challenge.videoId}` : "";
+
         setEditChallenge({
             title: challenge.title,
             description: challenge.description,
+            videoId: challenge.videoId,
             notes: challenge.notes,
+            // videoInput is only stored for the editing form, it does not go into the actual challenge object
+            videoInput: videoInput,
         });
         setEditing(true);
     }
@@ -122,8 +130,45 @@ function Home(){
         setEditing(false);
     }
 
+    async function isValidYouTubeId(videoId) {
+        const url = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        const response = await fetch(url, { method: "HEAD" });
+        return response.ok;
+    }
+
+    async function extractYouTubeId(input) {
+        if (!input) return "";
+        let id = "";
+
+        // regex pattern to cover multiple types of youtube links and extract the id
+        const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/;
+        const match = input.match(regex);
+
+        if (match) id = match[1];
+        else if (/^[A-Za-z0-9_-]{11}$/.test(input)) id = input;
+        else id = "";
+
+        let valid = await isValidYouTubeId(id);
+
+        return valid ? id : "";
+
+        // user input does not match a youtube link
+        return "";
+    }
+
+    async function handleVideoInputBlur(e){
+        let { name, value } = e.target;
+        const id = await extractYouTubeId(value);
+
+        setEditChallenge(prev => ({
+            ...prev,
+            videoId: id,
+        }));
+    }
+
     function handleChange(e) {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+
         setEditChallenge(prev => ({
             ...prev,
             [name]: value,
@@ -162,6 +207,20 @@ function Home(){
                             value={editChallenge.description}
                             onChange={handleChange}
                         />
+                        <input
+                            type="text"
+                            name="videoInput"
+                            placeholder="Paste a YouTube link or ID"
+                            value={editChallenge.videoInput}
+                            onChange={handleChange}
+                            onBlur={handleVideoInputBlur}
+                        />
+                        {editChallenge.videoInput.length > 0 && (
+                            <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
+                                {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
+                            </p>
+                        )}
+
                         <textarea
                             name="notes"
                             placeholder="Notes"
