@@ -106,6 +106,7 @@ function Home(){
         setEditChallenge({
             title: challenge.title,
             description: challenge.description,
+            videoUrl: challenge.videoUrl,
             notes: challenge.notes,
         });
         setEditing(true);
@@ -161,6 +162,12 @@ function Home(){
                             name="description"
                             placeholder="Description"
                             value={editChallenge.description}
+                            onChange={handleChange}
+                        />
+                        <textarea
+                            name="videoUrl"
+                            placeholder="youtube.com/..."
+                            value={editChallenge.videoUrl}
                             onChange={handleChange}
                         />
                         <textarea
