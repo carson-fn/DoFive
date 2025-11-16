@@ -1,15 +1,16 @@
 @import './variables.css';
 
 .challenge-card {
-  background: var(--color-card-bg);
-  color: var(--color-text);
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
-  padding: var(--spacing-xxl);
+  /* padding: var(--spacing-xxl); */
   margin: 1.5rem auto;
   width: var(--width-card);
   transition: all 0.25s ease;
   position: relative;
+  overflow: hidden;
 }
 
 .challenge-card:hover {
@@ -18,13 +19,19 @@
 }
 
 .challenge-header {
+  background: var(--color-secondary-dark);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xxl);
 }
 
+.challenge-body {
+  padding: var(--spacing-xxl);
+  padding-top: 0;
+}
 .challenge-title {
   font-size: var(--font-size-title);
   font-weight: 600;
@@ -44,18 +51,18 @@
 }
 
 .challenge-description {
-  color: var(--color-muted);
+  color: var(--color-on-secondary);
   font-size: var(--font-size-base);
   margin-bottom: 1rem;
   line-height: 1.5;
 }
 
 .challenge-info {
-  background: #f0f9fb;
+  background: var(--color-surface);
   border-radius: var(--radius-info);
   padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-size-info);
-  color: var(--color-text);
+  color: var(--color-on-surface);
   margin-bottom: 1rem;
 }
 

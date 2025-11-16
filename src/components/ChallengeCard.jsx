@@ -37,34 +37,36 @@ function ChallengeCard({challenge, onComplete}){
         </span>
       </div>
 
-      <p className="challenge-description">{challenge.description}</p>
+      <div className="challenge-body">
+        <p className="challenge-description">{challenge.description}</p>
 
-      <div className="challenge-info">
-        <p><b>Created:</b> {formatDate(challenge.dateCreated)}</p>
-        {challenge.lastCompleted && (
-          <p><b>Last Completed:</b> {formatDate(challenge.lastCompleted)}</p>
+        <div className="challenge-info">
+          <p><b>Created:</b> {formatDate(challenge.dateCreated)}</p>
+          {challenge.lastCompleted && (
+            <p><b>Last Completed:</b> {formatDate(challenge.lastCompleted)}</p>
+          )}
+        </div>
+
+        {videoId && (
+          <div className="embedded-video">
+            <iframe src={`https://www.youtube.com/embed/${videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
+          </div>
+        )}
+
+        {challenge.notes && (
+          <div className="challenge-notes">
+            <b>Notes:</b>
+            <p>{challenge.notes}</p>
+          </div>
+        )}
+
+        {!completedToday && (
+          <div className="button-group">
+            <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
+            <button className="complete-button" onClick={onComplete}>Finish</button>
+          </div>
         )}
       </div>
-
-      {videoId && (
-        <div className="embedded-video">
-          <iframe src={`https://www.youtube.com/embed/${videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
-        </div>
-      )}
-
-      {challenge.notes && (
-        <div className="challenge-notes">
-          <b>Notes:</b>
-          <p>{challenge.notes}</p>
-        </div>
-      )}
-
-      {!completedToday && (
-        <div className="button-group">
-          <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
-          <button className="complete-button" onClick={onComplete}>Finish</button>
-        </div>
-      )}
     </div>
       ) : (
         <Timer onComplete={onTimerComplete}/>

@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>DoFive</h1>
+        <h1>DO FIVE</h1>
         <p className="subtitle">The daily 5-minute challenge tracker</p>
       </header>
 
