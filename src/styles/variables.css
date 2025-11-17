@@ -11,21 +11,21 @@
   --color-surface: #fafafa;
 
   --color-on-primary: #2d2d2d;
+  --color-on-primary-light: #555;
   --color-on-secondary: #fafafa;
   --color-on-background: #2d2d2d;
   --color-on-surface: #2d2d2d;
   
-
-  --color-bg: #fafafa;
-  --color-text: var(--color-on-secondary);
-  --color-accent: var(--color-primary);
-  --color-muted: #555;
-  --color-border: #ddd;
-  --color-card-bg: #2576f9;
+  --color-footer-border: #ddd;
+  
   --color-danger: #df4545;
   --color-danger-hover: #dc2626;
-  --color-button-bg: #dddddd;
+  --color-button: #dddddd;
   --color-button-hover: #b5b5b5;
+
+  --color-button-dark: #1f5ae0;
+  --color-button-dark-hover: #1a4fc8;
+
 
   /* Shadows */
   --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -45,14 +45,15 @@
   --font-size-subtitle: 1rem;
   --font-size-small: 0.85rem;
   --font-size-info: 0.95rem;
-  --font-size-badge: 0.9rem;
+  --font-size-badge: 1rem;
 
   /* Spacing */
   --spacing-sm: 0.3rem;
   --spacing-md: 0.75rem;
   --spacing-lg: 1rem;
   --spacing-xl: 1.5rem;
-  --spacing-xxl: 1.75rem;
+  --spacing-xxl: 2rem;
+  --spacing-xxxl: 3rem;
   --max-width-content: 700px;
   --max-width-card: 520px;
   --width-card: 400px;

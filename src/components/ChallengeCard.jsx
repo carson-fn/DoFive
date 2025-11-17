@@ -60,10 +60,14 @@ function ChallengeCard({challenge, onComplete}){
           </div>
         )}
 
-        {!completedToday && (
-          <div className="button-group">
-            <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
+        {completedToday ? (
+          <div className="button-group-on-card">
+            <button className="complete-button">Finished!</button>
+          </div>
+        ) : (
+          <div className="button-group-on-card">
             <button className="complete-button" onClick={onComplete}>Finish</button>
+            <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
           </div>
         )}
       </div>

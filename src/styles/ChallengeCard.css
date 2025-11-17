@@ -6,7 +6,7 @@
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
   /* padding: var(--spacing-xxl); */
-  margin: 1.5rem auto;
+  margin: var(--spacing-xxl) auto;
   width: var(--width-card);
   transition: all 0.25s ease;
   position: relative;
@@ -26,10 +26,12 @@
   gap: 0.5rem;
   margin-bottom: var(--spacing-md);
   padding: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xl);
 }
 
 .challenge-body {
   padding: var(--spacing-xxl);
+  /* padding-bottom: var(--spacing-xxxl); */
   padding-top: 0;
 }
 .challenge-title {
@@ -67,23 +69,20 @@
 }
 
 .challenge-info p {
-  margin: var(--spacing-sm) 0;
+  margin: var(--spacing-sm);
 }
 
 .challenge-notes {
-  border-top: 1px solid #eee;
-  padding-top: var(--spacing-md);
+  margin-top: var(--spacing-md);
   font-size: var(--font-size-info);
-  color: #444;
+  color: var(--color-on-secondary);
 }
 
 /* for embedded videos */
 .embedded-video {
-  margin-top: 1rem;
+  margin-top: var(--spacing-md);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  background-color: #000; /* helps during loading */
   position: relative;
   padding-top: 56.25%; /* 16:9 aspect ratio */
 }

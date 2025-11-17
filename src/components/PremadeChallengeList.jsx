@@ -9,16 +9,21 @@ function PremadeChallengeList({onAddChallenge}){
             <div className="premade-challenge-grid">
                 {premadeChallenges.map((challenge) => (
                     <div className="challenge-card" key={challenge.id}>
-                        <h2 className="challenge-title">
-                            {challenge.title || "Unnamed Challenge"}
-                        </h2>
-                        <p className="challenge-description">{challenge.description}</p>
-                        {challenge.videoId && (
-                            <div className="embedded-video">
-                            <iframe src={`https://www.youtube.com/embed/${challenge.videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
-                            </div>
-                        )}
-                        <button className="select-premade-challenge-button" onClick={()=> onAddChallenge(challenge)}>Select</button>
+                        <div className="challenge-header">
+                            <h2 className="challenge-title">
+                                {challenge.title || "Unnamed Challenge"}
+                            </h2>
+                             <button className="select-premade-challenge-button" onClick={()=> onAddChallenge(challenge)}>Select</button>
+                        </div>
+                        <div className="challenge-body">
+                            <p className="challenge-description">{challenge.description}</p>
+                            {challenge.videoId && (
+                                <div className="embedded-video">
+                                <iframe src={`https://www.youtube.com/embed/${challenge.videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
+                                </div>
+                            )}
+                           
+                        </div>
                     </div>
                 ))}
             </div>

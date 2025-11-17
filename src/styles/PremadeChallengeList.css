@@ -1,14 +1,10 @@
 .premade-challenge-grid {
   display: flex;
+  /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; 
   justify-content: center;
   gap: 1rem;
-}
-
-.select-premade-challenge-button {
-    position: absolute;
-    bottom: 0;
-    margin:45px;
-    margin-bottom: 10px;
+  border: 3px solid red;
+  width: 100%;
 }

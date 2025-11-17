@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "../styles/Home.css"
+import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
 import PremadeChallengeList from "../components/PremadeChallengeList";
 
