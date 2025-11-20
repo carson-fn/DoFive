@@ -6,11 +6,12 @@
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
   /* padding: var(--spacing-xxl); */
-  margin: var(--spacing-xxl) auto;
+  /* margin: var(--spacing-xxl) auto; */
   width: var(--width-card);
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+  /* border: 3px solid green; */
 }
 
 .challenge-card:hover {

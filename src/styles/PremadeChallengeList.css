@@ -1,10 +1,42 @@
+@import "./variables.css";
+
+.premade-challenge-list{
+  margin-left: var(--spacing-lg);
+  margin-right: var(--spacing-lg);
+}
+
 .premade-challenge-grid {
   display: flex;
-  /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
   flex-direction: row;
   flex-wrap: wrap; 
   justify-content: center;
   gap: 1rem;
-  border: 3px solid red;
   width: 100%;
+  padding-top: var(--spacing-md);
+
+  /*align-items seems to keep the cards their own height, 
+  instead of auto adjusting to all be the same height*/
+  align-items: flex-start;
+}
+
+.premade-challenge-list-header{
+  display: flex;
+  justify-content: space-between;
+  /* border: 3px solid red; */
+}
+
+.premade-challenge-list-header div{
+  display: flex;
+  gap:0.5rem;
+}
+
+.create-challenge-button{
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  font-size: medium;
+}
+
+.create-challenge-button:hover{
+  background: var(--color-secondary-dark);
+  color: var(--color-on-secondary);
 }

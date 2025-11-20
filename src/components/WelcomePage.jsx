@@ -1,4 +1,4 @@
-function WelcomePage() {
+function WelcomePage({onGetStartedClick}) {
     return (
         <div className="welcome-page">
             <h1>Welcome to DO FIVE</h1>
@@ -15,7 +15,7 @@ function WelcomePage() {
 
             <p>You don't have a challenge yet!</p>
    
-            <button className="get-started-button" >Get Started</button>
+            <button className="get-started-button" onClick={onGetStartedClick}>Get Started</button>
 
 
         </div>

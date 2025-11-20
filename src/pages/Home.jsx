@@ -99,6 +99,7 @@ function Home(){
             videoInput: "",
         });
         setEditing(true);
+        setViewPremadeChallenges(false)
     };
 
     function removeChallenge(){
@@ -247,9 +248,9 @@ function Home(){
                 </>
             ) : (
                 viewPremadeChallenges ? (
-                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge}/>
+                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge} onCreateChallenge={createChallenge}/>
                 ) : (
-                    <WelcomePage/>
+                    <WelcomePage onGetStartedClick={()=>setViewPremadeChallenges(true)}/>
                 )
             )}
 
