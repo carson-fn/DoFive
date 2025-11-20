@@ -249,13 +249,6 @@ function Home(){
                 viewPremadeChallenges ? (
                     <PremadeChallengeList onAddChallenge={selectPremadeChallenge}/>
                 ) : (
-                    // <>
-                    //     <p>You don't have a challenge yet!</p>
-                    //     <div className="button-group">
-                    //         <button className="create-button" onClick={createChallenge}>Create Custom Challenge</button>
-                    //         <button className="create-button" onClick={()=> setViewPremadeChallenges(true)}>Use Premade Challenge</button>
-                    //     </div>
-                    // </>
                     <WelcomePage/>
                 )
             )}
