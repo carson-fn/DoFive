@@ -3,6 +3,7 @@ import "../styles/Home.css"
 import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
 import PremadeChallengeList from "../components/PremadeChallengeList";
+import WelcomePage from "../components/WelcomePage";
 
 function getToday() {
   const local = new Date();
@@ -191,68 +192,71 @@ function Home(){
 
     return(
         <div>
-            <h1>My Challenge</h1>
             {challenge ? (
-                editing ? (
-                    <div className="edit-challenge-form">
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Challenge Title"
-                            value={editChallenge.title}
-                            onChange={handleChange}
-                        />
-                        <textarea
-                            name="description"
-                            placeholder="Description"
-                            value={editChallenge.description}
-                            onChange={handleChange}
-                        />
-                        <input
-                            type="text"
-                            name="videoInput"
-                            placeholder="Paste a YouTube link or ID"
-                            value={editChallenge.videoInput}
-                            onChange={handleChange}
-                            onBlur={handleVideoInputBlur}
-                        />
-                        {editChallenge.videoInput.length > 0 && (
-                            <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
-                                {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
-                            </p>
-                        )}
+                <>
+                    <h1>My Challenge</h1>
+                    {editing ? (
+                        <div className="edit-challenge-form">
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Challenge Title"
+                                value={editChallenge.title}
+                                onChange={handleChange}
+                            />
+                            <textarea
+                                name="description"
+                                placeholder="Description"
+                                value={editChallenge.description}
+                                onChange={handleChange}
+                            />
+                            <input
+                                type="text"
+                                name="videoInput"
+                                placeholder="Paste a YouTube link or ID"
+                                value={editChallenge.videoInput}
+                                onChange={handleChange}
+                                onBlur={handleVideoInputBlur}
+                            />
+                            {editChallenge.videoInput.length > 0 && (
+                                <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
+                                    {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
+                                </p>
+                            )}
 
-                        <textarea
-                            name="notes"
-                            placeholder="Notes"
-                            value={editChallenge.notes}
-                            onChange={handleChange}
-                        />
-                        <div className="button-group">
-                            <button className="save-button" onClick={saveEdit}>Save</button>
-                            <button className="cancel-button" onClick={cancelEdit}>Cancel</button>
+                            <textarea
+                                name="notes"
+                                placeholder="Notes"
+                                value={editChallenge.notes}
+                                onChange={handleChange}
+                            />
+                            <div className="button-group">
+                                <button className="save-button" onClick={saveEdit}>Save</button>
+                                <button className="cancel-button" onClick={cancelEdit}>Cancel</button>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <>
-                        <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
-                         <div className="button-group">
-                            <button className="edit-button" onClick={startEditing}>Edit</button>
-                            <button className="remove-button" onClick={removeChallenge}>Remove</button>
-                        </div>
-                    </>
-                )
+                    ) : (
+                        <>
+                            <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
+                            <div className="button-group">
+                                <button className="edit-button" onClick={startEditing}>Edit</button>
+                                <button className="remove-button" onClick={removeChallenge}>Remove</button>
+                            </div>
+                        </>
+                    )}
+                </>
             ) : (
                 viewPremadeChallenges ? (
                     <PremadeChallengeList onAddChallenge={selectPremadeChallenge}/>
                 ) : (
-                    <>
-                        <p>You don't have a challenge yet!</p>
-                        <div className="button-group">
-                            <button className="create-button" onClick={createChallenge}>Create Custom Challenge</button>
-                            <button className="create-button" onClick={()=> setViewPremadeChallenges(true)}>Use Premade Challenge</button>
-                        </div>
-                    </>
+                    // <>
+                    //     <p>You don't have a challenge yet!</p>
+                    //     <div className="button-group">
+                    //         <button className="create-button" onClick={createChallenge}>Create Custom Challenge</button>
+                    //         <button className="create-button" onClick={()=> setViewPremadeChallenges(true)}>Use Premade Challenge</button>
+                    //     </div>
+                    // </>
+                    <WelcomePage/>
                 )
             )}
 
