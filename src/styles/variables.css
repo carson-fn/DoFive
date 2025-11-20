@@ -22,7 +22,7 @@
   --color-danger-hover: #dc2626;
   --color-button: #dddddd;
   --color-button-hover: #b5b5b5;
-
+  --color-on-button: var(--color-on-primary);
   --color-button-dark: #1f5ae0;
   --color-button-dark-hover: #1a4fc8;
 
