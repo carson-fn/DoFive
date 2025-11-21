@@ -41,10 +41,13 @@ function ChallengeCard({challenge, onComplete}){
         <p className="challenge-description">{challenge.description}</p>
 
         <div className="challenge-info">
-          <p><b>Created:</b> {formatDate(challenge.dateCreated)}</p>
-          {challenge.lastCompleted && (
-            <p><b>Last Completed:</b> {formatDate(challenge.lastCompleted)}</p>
+          <p><b>Started On:</b> {formatDate(challenge.dateStarted)}</p>
+          {challenge.streakSince && (
+            <p><b>Streak Since:</b> {formatDate(challenge.streakSince)}</p>
           )}
+          {/* {challenge.lastCompleted && (
+            <p><b>Last Completed:</b> {formatDate(challenge.lastCompleted)}</p>
+          )} */}
         </div>
 
         {videoId && (

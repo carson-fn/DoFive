@@ -23,7 +23,9 @@ const emptyChallenge = {
     title: "",
     description: "",
     dateCreated: null,
+    dateStarted: null,
     lastCompleted: null,
+    streakSince: null,
     streak: 0,
     notes: "",
     completedToday: false,
@@ -68,7 +70,7 @@ function Home(){
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
     function selectPremadeChallenge(premade){
-        let extended = {...emptyChallenge, ...premade};
+        let extended = {...emptyChallenge, ...premade, dateStarted: getToday()};
         setChallenge(extended)
         setViewPremadeChallenges(false)
     }     
@@ -88,6 +90,7 @@ function Home(){
             ...emptyChallenge,
             id: 1,
             dateCreated: getToday(),
+            dateStarted: getToday(),
         };
         setChallenge(newChallenge);
 
@@ -186,6 +189,7 @@ function Home(){
             streak: prev.streak + 1,
             completedToday: true,
             lastCompleted: today,
+            streakSince: prev.streak == 0 ? today : prev.streakSince,
         }));
     }
 
