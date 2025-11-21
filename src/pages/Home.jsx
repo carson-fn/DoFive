@@ -67,6 +67,9 @@ function Home(){
         notes: "",
     });
 
+    // for creating challenges
+    const [creating, setCreating] = useState(false);
+
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
     function selectPremadeChallenge(premade){
@@ -86,6 +89,7 @@ function Home(){
 
     // create/remove functions
     function createChallenge() {
+        setCreating(true);
         const newChallenge = {
             ...emptyChallenge,
             id: 1,
@@ -133,6 +137,10 @@ function Home(){
     }
 
     function cancelEdit() {
+        if(creating){
+            setChallenge(null);
+            setCreating(false);
+        }
         setEditing(false);
     }
 

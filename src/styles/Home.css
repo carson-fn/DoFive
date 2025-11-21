@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 0.6rem;
   margin: 1rem 0;
+  min-width: 400px;
 }
 
 .edit-challenge-form input,
