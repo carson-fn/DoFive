@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Home.css"
 import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
@@ -6,12 +6,12 @@ import PremadeChallengeList from "../components/PremadeChallengeList";
 import WelcomePage from "../components/WelcomePage";
 
 function getToday() {
-  const local = new Date();
-  local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
-  return local.toISOString().split("T")[0];
+    const local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    return local.toISOString().split("T")[0];
 }
 
-function getYesterday(){
+function getYesterday() {
     const local = new Date();
     local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
     local.setDate(local.getDate() - 1)
@@ -33,12 +33,12 @@ const emptyChallenge = {
 }
 
 
-function Home(){
+function Home() {
     // load challenge from localStorage
     const [challenge, setChallenge] = useState(() => {
         let saved = localStorage.getItem("challenge");
         let updated;
-        if(saved){
+        if (saved) {
             updated = JSON.parse(saved)
         } else {
             return null;
@@ -47,15 +47,15 @@ function Home(){
         let yesterday = getYesterday();
 
         // set completedToday
-        if (updated.lastCompleted != today){
-            updated = {...updated, completedToday: false}
+        if (updated.lastCompleted != today) {
+            updated = { ...updated, completedToday: false }
         }
 
         // check that streak is still valid
         if (updated.lastCompleted && updated.lastCompleted !== today && updated.lastCompleted !== yesterday) {
-            updated = {...updated, streak: 0};
+            updated = { ...updated, streak: 0 };
         }
-    
+
         return updated;
     });
 
@@ -72,11 +72,11 @@ function Home(){
 
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
-    function selectPremadeChallenge(premade){
-        let extended = {...emptyChallenge, ...premade, dateStarted: getToday()};
+    function selectPremadeChallenge(premade) {
+        let extended = { ...emptyChallenge, ...premade, dateStarted: getToday() };
         setChallenge(extended)
         setViewPremadeChallenges(false)
-    }     
+    }
 
     // save to localStorage when changed
     useEffect(() => {
@@ -109,7 +109,7 @@ function Home(){
         setViewPremadeChallenges(false)
     };
 
-    function removeChallenge(){
+    function removeChallenge() {
         setChallenge(null)
     }
 
@@ -137,7 +137,7 @@ function Home(){
     }
 
     function cancelEdit() {
-        if(creating){
+        if (creating) {
             setChallenge(null);
             setCreating(false);
         }
@@ -170,7 +170,7 @@ function Home(){
         return "";
     }
 
-    async function handleVideoInputBlur(e){
+    async function handleVideoInputBlur(e) {
         let { name, value } = e.target;
         const id = await extractYouTubeId(value);
 
@@ -203,10 +203,10 @@ function Home(){
 
 
 
-    return(
-        <div>
+    return (
+        <div className="home-page">
             {challenge ? (
-                <>
+                <div className="challenge-container">
                     <h1>My Challenge</h1>
                     {editing ? (
                         <div className="edit-challenge-form">
@@ -223,20 +223,21 @@ function Home(){
                                 value={editChallenge.description}
                                 onChange={handleChange}
                             />
-                            <input
-                                type="text"
-                                name="videoInput"
-                                placeholder="Paste a YouTube link or ID"
-                                value={editChallenge.videoInput}
-                                onChange={handleChange}
-                                onBlur={handleVideoInputBlur}
-                            />
-                            {editChallenge.videoInput.length > 0 && (
-                                <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
-                                    {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
-                                </p>
-                            )}
-
+                            <div className="link-input-container">
+                                <input
+                                    type="text"
+                                    name="videoInput"
+                                    placeholder="Paste a YouTube link or ID"
+                                    value={editChallenge.videoInput}
+                                    onChange={handleChange}
+                                    onBlur={handleVideoInputBlur}
+                                />
+                                {editChallenge.videoInput.length > 0 && (
+                                    <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
+                                        {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
+                                    </p>
+                                )}
+                            </div>
                             <textarea
                                 name="notes"
                                 placeholder="Notes"
@@ -250,19 +251,19 @@ function Home(){
                         </div>
                     ) : (
                         <>
-                            <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
+                            <ChallengeCard challenge={challenge} onComplete={completeChallenge} />
                             <div className="button-group">
                                 <button className="edit-button" onClick={startEditing}>Edit</button>
                                 <button className="remove-button" onClick={removeChallenge}>Remove</button>
                             </div>
                         </>
                     )}
-                </>
+                </div>
             ) : (
                 viewPremadeChallenges ? (
-                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge} onCreateChallenge={createChallenge}/>
+                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge} onCreateChallenge={createChallenge} />
                 ) : (
-                    <WelcomePage onGetStartedClick={()=>setViewPremadeChallenges(true)}/>
+                    <WelcomePage onGetStartedClick={() => setViewPremadeChallenges(true)} />
                 )
             )}
 

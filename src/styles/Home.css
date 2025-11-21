@@ -1,15 +1,30 @@
 @import './variables.css';
+
+.home-page {
+  width: 100%;
+}
+
+.challenge-container{
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* edit form layout */
 .edit-challenge-form {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   margin: 1rem 0;
-  min-width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .edit-challenge-form input,
 .edit-challenge-form textarea {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
   padding: 0.6rem;
   border-radius: 6px;
   border: 1px solid #d1d5db;
@@ -20,4 +35,34 @@
 .edit-challenge-form textarea {
   resize: vertical;
   min-height: 80px;
+}
+
+.link-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%;
+}
+
+.link-input-container input {
+  /* width: 60%; */
+}
+
+.link-input-container p {
+  /* prevents the text from squishing the input */
+  flex-shrink: 0; 
+}
+
+.valid-link,
+.invalid-link {
+  margin: 0;
+  padding: 0;
+}
+
+.valid-link {
+  color: green;
+}
+
+.invalid-link {
+  color: red;
 }
