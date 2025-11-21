@@ -1,32 +1,31 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import "../styles/ChallengeCard.css"
 import Timer from './Timer';
 
-function ChallengeCard({challenge, onComplete}){
-    const { title, description, dateCreated, lastCompleted, streak, completedToday, notes, videoId } = challenge;
-    const [timerOn, setTimerOn] = useState(false)
+function ChallengeCard({ challenge, onComplete }) {
+  const { title, description, dateCreated, lastCompleted, streak, completedToday, notes, videoId } = challenge;
+  const [timerOn, setTimerOn] = useState(false)
 
-    function formatDate(dateStr){
-        if (!dateStr) return "N/A";
+  function formatDate(dateStr) {
+    if (!dateStr) return "N/A";
 
-        // ensure date does not get messed from time zone conversion
-        const [year, month, day] = dateStr.split("-").map(Number);
-        const date = new Date(year, month - 1, day); // month is 0-indexed
+    // ensure date does not get messed from time zone conversion
+    const [year, month, day] = dateStr.split("-").map(Number);
+    const date = new Date(year, month - 1, day); // month is 0-indexed
 
-        return date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
-    };    
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  };
 
-    function startTimer(){
-      setTimerOn(true)
-    }
+  function startTimer() {
+    setTimerOn(true)
+  }
 
-    function onTimerComplete(){
-      setTimerOn(false)
-      onComplete()
-    }
+  function onTimerComplete() {
+    setTimerOn(false)
+    onComplete()
+  }
 
-    return (<>
-      {!timerOn ? (
+  return (
     <div className="challenge-card">
       <div className="challenge-header">
         <h2 className="challenge-title">
@@ -70,17 +69,16 @@ function ChallengeCard({challenge, onComplete}){
         ) : (
           <div className="button-group-on-card">
             <button className="complete-button" onClick={onComplete}>Finish</button>
-            <button className="start-timer-button" onClick={startTimer}>Start Timer</button>
+            {!timerOn && <button className="start-timer-button" onClick={startTimer}>Start Timer</button>}
           </div>
         )}
       </div>
-    </div>
-      ) : (
-        <Timer onComplete={onTimerComplete}/>
+      {timerOn && (
+        <Timer onComplete = { onTimerComplete }/>
       )}
-      </>
+    </div>
   );
-  
+
 }
 
 export default ChallengeCard;

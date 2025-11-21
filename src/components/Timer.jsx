@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../styles/Timer.css"
 
 function Timer({onComplete}) {
-    const totalTime = 3;
+    const totalTime = 5*60;
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    const [timerOn, setTimerOn] = useState(false);
+    const [timerOn, setTimerOn] = useState(true);
 
     useEffect(() => {
         let interval = null;
