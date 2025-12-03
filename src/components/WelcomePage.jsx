@@ -5,7 +5,7 @@ function WelcomePage({ onGetStartedClick }) {
         <div className="welcome-page-wrapper">
             <div className="welcome-page">
                 <div className="welcome-page-header">
-                    <h1>Welcome to DO FIVE</h1>
+                    <h1>Welcome to DO&nbsp;FIVE</h1>
                 </div>
                 <div className="welcome-page-body">
                     <p>
