@@ -18,8 +18,8 @@
   
   --color-footer-border: #ddd;
   
-  --color-danger: #df4545;
-  --color-danger-hover: #dc2626;
+  --color-danger: #ff3e3e;
+  --color-danger-hover: #ff0000;
   --color-button: #dddddd;
   --color-button-hover: #b5b5b5;
   --color-on-button: var(--color-on-primary);
