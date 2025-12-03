@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Timer.css"
 
 function Timer({onComplete}) {
-    const totalTime = 5*60;
+    const totalTime = 5;
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [timerOn, setTimerOn] = useState(true);
 

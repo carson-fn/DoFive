@@ -68,7 +68,7 @@ function ChallengeCard({ challenge, onComplete }) {
           </div>
         ) : (
           <div className="button-group-on-card">
-            <button className="complete-button" onClick={onComplete}>Finish</button>
+            <button className="complete-button" onClick={onTimerComplete}>Finish</button>
             {!timerOn && <button className="start-timer-button" onClick={startTimer}>Start Timer</button>}
           </div>
         )}

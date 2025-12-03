@@ -192,6 +192,8 @@ function Home() {
     // completing a challenge for the day
     function completeChallenge() {
         const today = getToday();
+        if (challenge.lastCompleted == today){return;};
+        
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
