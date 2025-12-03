@@ -53,7 +53,7 @@ function Home() {
 
         // check that streak is still valid
         if (updated.lastCompleted && updated.lastCompleted !== today && updated.lastCompleted !== yesterday) {
-            updated = { ...updated, streak: 0 };
+            updated = { ...updated, streak: 0, streakSince: null };
         }
 
         return updated;
