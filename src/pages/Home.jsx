@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Home.css"
+import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
 import PremadeChallengeList from "../components/PremadeChallengeList";
+import WelcomePage from "../components/WelcomePage";
 
 function getToday() {
-  const local = new Date();
-  local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
-  return local.toISOString().split("T")[0];
+    const local = new Date();
+    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
+    return local.toISOString().split("T")[0];
 }
 
-function getYesterday(){
+function getYesterday() {
     const local = new Date();
     local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
     local.setDate(local.getDate() - 1)
@@ -21,20 +23,23 @@ const emptyChallenge = {
     title: "",
     description: "",
     dateCreated: null,
+    dateStarted: null,
     lastCompleted: null,
+    streakSince: null,
     streak: 0,
     notes: "",
     completedToday: false,
-    videoId: "tgbNymZ7vqY",
+    videoId: "",
+    // videoId: "tgbNymZ7vqY",
 }
 
 
-function Home(){
+function Home() {
     // load challenge from localStorage
     const [challenge, setChallenge] = useState(() => {
         let saved = localStorage.getItem("challenge");
         let updated;
-        if(saved){
+        if (saved) {
             updated = JSON.parse(saved)
         } else {
             return null;
@@ -43,15 +48,15 @@ function Home(){
         let yesterday = getYesterday();
 
         // set completedToday
-        if (updated.lastCompleted != today){
-            updated = {...updated, completedToday: false}
+        if (updated.lastCompleted != today) {
+            updated = { ...updated, completedToday: false }
         }
 
         // check that streak is still valid
         if (updated.lastCompleted && updated.lastCompleted !== today && updated.lastCompleted !== yesterday) {
-            updated = {...updated, streak: 0};
+            updated = { ...updated, streak: 0, streakSince: null };
         }
-    
+
         return updated;
     });
 
@@ -63,13 +68,16 @@ function Home(){
         notes: "",
     });
 
+    // for creating challenges
+    const [creating, setCreating] = useState(false);
+
     // for selecting premade challenges
     const [viewPremadeChallenges, setViewPremadeChallenges] = useState(false);
-    function selectPremadeChallenge(premade){
-        let extended = {...emptyChallenge, ...premade};
+    function selectPremadeChallenge(premade) {
+        let extended = { ...emptyChallenge, ...premade, dateStarted: getToday() };
         setChallenge(extended)
         setViewPremadeChallenges(false)
-    }     
+    }
 
     // save to localStorage when changed
     useEffect(() => {
@@ -82,10 +90,12 @@ function Home(){
 
     // create/remove functions
     function createChallenge() {
+        setCreating(true);
         const newChallenge = {
             ...emptyChallenge,
             id: 1,
             dateCreated: getToday(),
+            dateStarted: getToday(),
         };
         setChallenge(newChallenge);
 
@@ -97,9 +107,10 @@ function Home(){
             videoInput: "",
         });
         setEditing(true);
+        setViewPremadeChallenges(false)
     };
 
-    function removeChallenge(){
+    function removeChallenge() {
         setChallenge(null)
     }
 
@@ -127,9 +138,15 @@ function Home(){
     }
 
     function cancelEdit() {
+        // if user is creating a challenge, then make sure to remove it on cancel
+        if (creating) {
+            setChallenge(null);
+            setCreating(false);
+        }
         setEditing(false);
     }
 
+    // youtube link validation functions
     async function isValidYouTubeId(videoId) {
         const url = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
         const response = await fetch(url, { method: "HEAD" });
@@ -150,13 +167,12 @@ function Home(){
 
         let valid = await isValidYouTubeId(id);
 
+        // return the id if it is valid, otherwise return empty string
         return valid ? id : "";
-
-        // user input does not match a youtube link
-        return "";
     }
 
-    async function handleVideoInputBlur(e){
+    // validate youtube link anytime user clicks or tabs out of the input box
+    async function handleVideoInputBlur(e) {
         let { name, value } = e.target;
         const id = await extractYouTubeId(value);
 
@@ -166,6 +182,7 @@ function Home(){
         }));
     }
 
+    // for the editing/creating challenge form
     function handleChange(e) {
         let { name, value } = e.target;
 
@@ -178,80 +195,86 @@ function Home(){
     // completing a challenge for the day
     function completeChallenge() {
         const today = getToday();
+        if (challenge.lastCompleted == today){return;};
+
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
             completedToday: true,
             lastCompleted: today,
+            streakSince: prev.streak == 0 ? today : prev.streakSince,
         }));
     }
 
 
 
-    return(
-        <div>
-            <h1>My Challenge</h1>
-            {challenge ? (
-                editing ? (
-                    <div className="edit-challenge-form">
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Challenge Title"
-                            value={editChallenge.title}
-                            onChange={handleChange}
-                        />
-                        <textarea
-                            name="description"
-                            placeholder="Description"
-                            value={editChallenge.description}
-                            onChange={handleChange}
-                        />
-                        <input
-                            type="text"
-                            name="videoInput"
-                            placeholder="Paste a YouTube link or ID"
-                            value={editChallenge.videoInput}
-                            onChange={handleChange}
-                            onBlur={handleVideoInputBlur}
-                        />
-                        {editChallenge.videoInput.length > 0 && (
-                            <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
-                                {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
-                            </p>
-                        )}
+    return (
+        <div className="home-page">
 
-                        <textarea
-                            name="notes"
-                            placeholder="Notes"
-                            value={editChallenge.notes}
-                            onChange={handleChange}
-                        />
-                        <div className="button-group">
-                            <button className="save-button" onClick={saveEdit}>Save</button>
-                            <button className="cancel-button" onClick={cancelEdit}>Cancel</button>
+            {/* display challenge if user has one, otherwise display welcome page */}
+            {challenge ? (
+                <div className="challenge-container">
+                    <h1>My Challenge</h1>
+
+                    {/* display edit form if editing */}
+                    {editing ? (
+                        <div className="edit-challenge-form">
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Challenge Title"
+                                value={editChallenge.title}
+                                onChange={handleChange}
+                            />
+                            <textarea
+                                name="description"
+                                placeholder="Description"
+                                value={editChallenge.description}
+                                onChange={handleChange}
+                            />
+                            <div className="link-input-container">
+                                <input
+                                    type="text"
+                                    name="videoInput"
+                                    placeholder="Paste a YouTube link or ID"
+                                    value={editChallenge.videoInput}
+                                    onChange={handleChange}
+                                    onBlur={handleVideoInputBlur}
+                                />
+                                {editChallenge.videoInput.length > 0 && (
+                                    <p className={editChallenge.videoId ? "valid-link" : "invalid-link"}>
+                                        {editChallenge.videoId ? "✔ Valid link" : "✘ Invalid link"}
+                                    </p>
+                                )}
+                            </div>
+                            <textarea
+                                name="notes"
+                                placeholder="Notes"
+                                value={editChallenge.notes}
+                                onChange={handleChange}
+                            />
+                            <div className="button-group">
+                                <button className="save-button" onClick={saveEdit}>Save</button>
+                                <button className="cancel-button" onClick={cancelEdit}>Cancel</button>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <>
-                        <ChallengeCard challenge={challenge} onComplete={completeChallenge}/>
-                         <div className="button-group">
-                            <button className="edit-button" onClick={startEditing}>Edit</button>
-                            <button className="remove-button" onClick={removeChallenge}>Remove</button>
-                        </div>
-                    </>
-                )
+                    ) : (
+
+                        // if not editing then display challenge
+                        <>
+                            <ChallengeCard challenge={challenge} onComplete={completeChallenge} />
+                            <div className="button-group">
+                                <button className="edit-button" onClick={startEditing}>Edit</button>
+                                <button className="remove-button" onClick={removeChallenge}>Remove</button>
+                            </div>
+                        </>
+                    )}
+                </div>
             ) : (
                 viewPremadeChallenges ? (
-                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge}/>
+                    <PremadeChallengeList onAddChallenge={selectPremadeChallenge} onCreateChallenge={createChallenge} />
                 ) : (
-                    <>
-                        <p>You don't have a challenge yet!</p>
-                        <div className="button-group">
-                            <button className="create-button" onClick={createChallenge}>Create Custom Challenge</button>
-                            <button className="create-button" onClick={()=> setViewPremadeChallenges(true)}>Use Premade Challenge</button>
-                        </div>
-                    </>
+                    <WelcomePage onGetStartedClick={() => setViewPremadeChallenges(true)} />
                 )
             )}
 

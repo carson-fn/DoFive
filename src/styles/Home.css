@@ -1,35 +1,13 @@
 @import './variables.css';
 
-/* buttons */
-button {
-  background-color: var(--color-button-bg);
-  color: rgb(52, 52, 52);
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: var(--radius-button);
-  cursor: pointer;
-  font-weight: 600;
-  margin: 0.4rem;
-  transition: all 0.2s ease;
+.home-page {
+  width: 100%;
 }
 
-button:hover {
-  background-color: var(--color-button-hover);
-}
-
-/* specific buttons */
-.remove-button {
-  background-color: var(--color-danger);
-}
-
-.remove-button:hover {
-  background-color: var(--color-danger-hover);
-}
-
-/* center create button */
-.create-button {
-  display: block;
-  margin: 1rem auto;
+.challenge-container{
+   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* edit form layout */
@@ -38,10 +16,15 @@ button:hover {
   flex-direction: column;
   gap: 0.6rem;
   margin: 1rem 0;
+  width: 100%;
+  max-width: 400px;
 }
 
 .edit-challenge-form input,
 .edit-challenge-form textarea {
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
   padding: 0.6rem;
   border-radius: 6px;
   border: 1px solid #d1d5db;
@@ -54,8 +37,32 @@ button:hover {
   min-height: 80px;
 }
 
-.button-group {
+.link-input-container {
   display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  align-items: center;
+  justify-content: space-between; 
+  width: 100%;
+}
+
+.link-input-container input {
+  /* width: 60%; */
+}
+
+.link-input-container p {
+  /* prevents the text from squishing the input */
+  flex-shrink: 0; 
+}
+
+.valid-link,
+.invalid-link {
+  margin: 0;
+  padding: 0;
+}
+
+.valid-link {
+  color: green;
+}
+
+.invalid-link {
+  color: red;
 }

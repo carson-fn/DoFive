@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../styles/Timer.css"
 
 function Timer({onComplete}) {
-    const totalTime = 3;
+    // total time in seconds
+    const totalTime = 5 * 60;
+
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    const [timerOn, setTimerOn] = useState(false);
+    const [timerOn, setTimerOn] = useState(true);
 
     useEffect(() => {
         let interval = null;
@@ -19,13 +21,16 @@ function Timer({onComplete}) {
                 setTimeLeft((prev) => prev - 1);
             }, 1000);
         } else if (!timerOn && interval) {
+            // clear this interval if timer is not running
             clearInterval(interval);
         }
 
         // interval will be cleared on any change to timerOn or timeLeft
         return () => clearInterval(interval);
+        
     }, [timerOn, timeLeft]);
 
+    // timer button onClick functions
     function startTimer() {
         if (timeLeft === 0) setTimeLeft(totalTime);
         setTimerOn(true);
@@ -40,6 +45,7 @@ function Timer({onComplete}) {
         setTimeLeft(totalTime);
     };
 
+    // format time into minutes and seconds
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
