@@ -29,7 +29,8 @@ const emptyChallenge = {
     streak: 0,
     notes: "",
     completedToday: false,
-    videoId: "tgbNymZ7vqY",
+    videoId: "",
+    // videoId: "tgbNymZ7vqY",
 }
 
 
@@ -137,6 +138,7 @@ function Home() {
     }
 
     function cancelEdit() {
+        // if user is creating a challenge, then make sure to remove it on cancel
         if (creating) {
             setChallenge(null);
             setCreating(false);
@@ -144,6 +146,7 @@ function Home() {
         setEditing(false);
     }
 
+    // youtube link validation functions
     async function isValidYouTubeId(videoId) {
         const url = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
         const response = await fetch(url, { method: "HEAD" });
@@ -164,12 +167,11 @@ function Home() {
 
         let valid = await isValidYouTubeId(id);
 
+        // return the id if it is valid, otherwise return empty string
         return valid ? id : "";
-
-        // user input does not match a youtube link
-        return "";
     }
 
+    // validate youtube link anytime user clicks or tabs out of the input box
     async function handleVideoInputBlur(e) {
         let { name, value } = e.target;
         const id = await extractYouTubeId(value);
@@ -180,6 +182,7 @@ function Home() {
         }));
     }
 
+    // for the editing/creating challenge form
     function handleChange(e) {
         let { name, value } = e.target;
 
@@ -193,7 +196,7 @@ function Home() {
     function completeChallenge() {
         const today = getToday();
         if (challenge.lastCompleted == today){return;};
-        
+
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
@@ -207,9 +210,13 @@ function Home() {
 
     return (
         <div className="home-page">
+
+            {/* display challenge if user has one, otherwise display welcome page */}
             {challenge ? (
                 <div className="challenge-container">
                     <h1>My Challenge</h1>
+
+                    {/* display edit form if editing */}
                     {editing ? (
                         <div className="edit-challenge-form">
                             <input
@@ -252,6 +259,8 @@ function Home() {
                             </div>
                         </div>
                     ) : (
+
+                        // if not editing then display challenge
                         <>
                             <ChallengeCard challenge={challenge} onComplete={completeChallenge} />
                             <div className="button-group">

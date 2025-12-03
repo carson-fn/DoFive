@@ -16,6 +16,7 @@ function ChallengeCard({ challenge, onComplete }) {
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   };
 
+  // timer functions
   function startTimer() {
     setTimerOn(true)
   }
@@ -27,16 +28,21 @@ function ChallengeCard({ challenge, onComplete }) {
 
   return (
     <div className="challenge-card">
+
       <div className="challenge-header">
+
         <h2 className="challenge-title">
           {challenge.title || "Unnamed Challenge"}
         </h2>
+
         <span className="streak-badge">
           {challenge.streak} 🔥
         </span>
+
       </div>
 
       <div className="challenge-body">
+
         <p className="challenge-description">{challenge.description}</p>
 
         <div className="challenge-info">
@@ -49,12 +55,14 @@ function ChallengeCard({ challenge, onComplete }) {
           )} */}
         </div>
 
+        {/* embedded video */}
         {videoId && (
           <div className="embedded-video">
             <iframe src={`https://www.youtube.com/embed/${videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
           </div>
         )}
 
+        {/* notes */}
         {challenge.notes && (
           <div className="challenge-notes">
             <b>Notes:</b>
@@ -62,6 +70,7 @@ function ChallengeCard({ challenge, onComplete }) {
           </div>
         )}
 
+        {/* finish challenge and start timer buttons */}
         {completedToday ? (
           <div className="button-group-on-card">
             <button className="complete-button">Finished!</button>
@@ -73,9 +82,12 @@ function ChallengeCard({ challenge, onComplete }) {
           </div>
         )}
       </div>
+
+      {/* display timer at the bottom of the card when started */}
       {timerOn && (
-        <Timer onComplete = { onTimerComplete }/>
+        <Timer onComplete={onTimerComplete} />
       )}
+
     </div>
   );
 
