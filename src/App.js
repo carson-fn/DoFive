@@ -1,4 +1,5 @@
 import './styles/App.css';
+import './styles/buttons.css'
 import Home from './pages/Home.jsx';
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
 
       <footer className="app-footer">
         <p>© 2025 DoFive</p>
+        <button className="feedback-button" onClick={() => window.location.href = "mailto:dofivefeedback@gmail.com?subject=App Feedback"}>
+          Feedback
+        </button>
       </footer>
     </div>
   );

@@ -35,7 +35,10 @@
 }
 
 .app-footer {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   padding: var(--spacing-md);
   font-size: var(--font-size-small);
   color: var(--color-on-primary-light);
