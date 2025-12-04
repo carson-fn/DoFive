@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Home.css"
 import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
@@ -48,7 +48,7 @@ function Home() {
         let yesterday = getYesterday();
 
         // set completedToday
-        if (updated.lastCompleted != today) {
+        if (updated.lastCompleted !== today) {
             updated = { ...updated, completedToday: false }
         }
 
@@ -173,7 +173,7 @@ function Home() {
 
     // validate youtube link anytime user clicks or tabs out of the input box
     async function handleVideoInputBlur(e) {
-        let { name, value } = e.target;
+        let { value } = e.target;
         const id = await extractYouTubeId(value);
 
         setEditChallenge(prev => ({
@@ -195,14 +195,14 @@ function Home() {
     // completing a challenge for the day
     function completeChallenge() {
         const today = getToday();
-        if (challenge.lastCompleted == today){return;};
+        if (challenge.lastCompleted === today){return;};
 
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
             completedToday: true,
             lastCompleted: today,
-            streakSince: prev.streak == 0 ? today : prev.streakSince,
+            streakSince: prev.streak === 0 ? today : prev.streakSince,
         }));
     }
 
