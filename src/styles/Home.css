@@ -43,10 +43,10 @@
   justify-content: space-between; 
   width: 100%;
 }
-
+/* 
 .link-input-container input {
-  /* width: 60%; */
-}
+   width: 60%; 
+} */
 
 .link-input-container p {
   /* prevents the text from squishing the input */

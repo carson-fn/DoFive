@@ -48,7 +48,7 @@ function Home() {
         let yesterday = getYesterday();
 
         // set completedToday
-        if (updated.lastCompleted != today) {
+        if (updated.lastCompleted !== today) {
             updated = { ...updated, completedToday: false }
         }
 
@@ -195,14 +195,14 @@ function Home() {
     // completing a challenge for the day
     function completeChallenge() {
         const today = getToday();
-        if (challenge.lastCompleted == today){return;};
+        if (challenge.lastCompleted === today){return;};
 
         setChallenge(prev => ({
             ...prev,
             streak: prev.streak + 1,
             completedToday: true,
             lastCompleted: today,
-            streakSince: prev.streak == 0 ? today : prev.streakSince,
+            streakSince: prev.streak === 0 ? today : prev.streakSince,
         }));
     }
 
