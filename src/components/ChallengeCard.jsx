@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import "../styles/ChallengeCard.css"
 import Timer from './Timer';
 
