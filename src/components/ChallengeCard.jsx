@@ -3,7 +3,7 @@ import "../styles/ChallengeCard.css"
 import Timer from './Timer';
 
 function ChallengeCard({ challenge, onComplete }) {
-  const { title, description, dateCreated, lastCompleted, streak, completedToday, notes, videoId } = challenge;
+  // const { title, description, dateCreated, lastCompleted, streak, completedToday, notes, videoId } = challenge;
   const [timerOn, setTimerOn] = useState(false)
 
   function formatDate(dateStr) {
@@ -56,9 +56,9 @@ function ChallengeCard({ challenge, onComplete }) {
         </div>
 
         {/* embedded video */}
-        {videoId && (
+        {challenge.videoId && (
           <div className="embedded-video">
-            <iframe src={`https://www.youtube.com/embed/${videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
+            <iframe src={`https://www.youtube.com/embed/${challenge.videoId}`} title="Embedded Video" allow="fullscreen;"></iframe>
           </div>
         )}
 
@@ -71,7 +71,7 @@ function ChallengeCard({ challenge, onComplete }) {
         )}
 
         {/* finish challenge and start timer buttons */}
-        {completedToday ? (
+        {challenge.completedToday ? (
           <div className="button-group-on-card">
             <button className="complete-button">Finished!</button>
           </div>
