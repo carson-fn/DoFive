@@ -11,7 +11,7 @@ function Timer({onComplete}) {
     useEffect(() => {
         let interval = null;
 
-        if (timeLeft == 0){
+        if (timeLeft === 0){
             onComplete()
         }
 
@@ -28,7 +28,7 @@ function Timer({onComplete}) {
         // interval will be cleared on any change to timerOn or timeLeft
         return () => clearInterval(interval);
         
-    }, [timerOn, timeLeft]);
+    }, [timerOn, timeLeft, onComplete]); // Netlify said to add onComplete here because it is a stable prop
 
     // timer button onClick functions
     function startTimer() {
