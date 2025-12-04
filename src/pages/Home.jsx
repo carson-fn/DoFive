@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Home.css"
 import "../styles/buttons.css"
 import ChallengeCard from "../components/ChallengeCard";
@@ -173,7 +173,7 @@ function Home() {
 
     // validate youtube link anytime user clicks or tabs out of the input box
     async function handleVideoInputBlur(e) {
-        let { name, value } = e.target;
+        let { value } = e.target;
         const id = await extractYouTubeId(value);
 
         setEditChallenge(prev => ({
