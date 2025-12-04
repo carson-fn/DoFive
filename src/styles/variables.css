@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  /* Colors */
+  --color-primary: #F9A825;
+  --color-primary-dark: #f57f17;
+  --color-secondary: #2576f9;
+  --color-secondary-dark: #2e41c7;
+
+  --color-background: #fafafa;
+  --color-surface: #fafafa;
+
+  --color-on-primary: #2d2d2d;
+  --color-on-primary-light: #555;
+  --color-on-secondary: #fafafa;
+  --color-on-background: #2d2d2d;
+  --color-on-surface: #2d2d2d;
+  
+  --color-footer-border: #ddd;
+  
+  --color-danger: #ff3e3e;
+  --color-danger-hover: #ff0000;
+  --color-button: #dddddd;
+  --color-button-hover: #b5b5b5;
+  --color-on-button: var(--color-on-primary);
+  --color-button-dark: #1f5ae0;
+  --color-button-dark-hover: #1a4fc8;
+
+
+  /* Shadows */
+  --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.4);
+  --shadow-badge: 0 2px 6px rgba(6, 182, 212, 0.3);
+
+  /* Border radius */
+  --radius-card: 16px;
+  --radius-button: 8px;
+  --radius-info: 10px;
+
+  /* Font */
+  --font-main: "Stack sans text", sans-serif;
+  --font-code: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --font-size-base: 1rem;
+  --font-size-title: 1.6rem;
+  --font-size-subtitle: 1rem;
+  --font-size-small: 0.85rem;
+  --font-size-info: 0.95rem;
+  --font-size-badge: 1rem;
+
+  /* Spacing */
+  --spacing-sm: 0.3rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-xxl: 2rem;
+  --spacing-xxxl: 3rem;
+  --max-width-content: 700px;
+  --max-width-card: 520px;
+  --width-card: 400px;
+}

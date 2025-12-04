@@ -1,0 +1,23 @@
+@import './variables.css';
+
+.timer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  background: var(--color-secondary-dark);
+}
+
+.timer-container h2 {
+  font-size: var(--font-size-title);
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+.timer-container button{
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+}

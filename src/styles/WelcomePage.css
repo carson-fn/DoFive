@@ -1,0 +1,48 @@
+@import "variables.css";
+
+.welcome-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-page {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  margin: 0;
+  margin-top: var(--spacing-xl);
+  transition: all 0.25s ease;
+  overflow: hidden;
+  max-width: 800px
+}
+
+.welcome-page:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.welcome-page-header {
+  background: var(--color-secondary-dark);
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+}
+
+.welcome-page-body {
+  padding: var(--spacing-xxl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+  margin-bottom: 1rem;
+}
+
+.get-started-button{
+    font-size: large;
+    background: var(--color-surface);
+    color: var(--color-on-surface);
+}
